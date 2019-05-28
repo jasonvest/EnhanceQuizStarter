@@ -21,6 +21,9 @@ class ViewController: UIViewController {
     
     var gameSound: SystemSoundID = 0
     
+    let triviaProvider = TriviaProvider()
+    
+    
     let trivia: [[String : String]] = [
         ["Question": "Only female koalas can whistle", "Answer": "False"],
         ["Question": "Blue whales are technically whales", "Answer": "True"],
