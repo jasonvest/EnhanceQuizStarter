@@ -18,18 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CSn-ih-qRR">
-                                <rect key="frame" x="37" y="192" width="300" height="50"/>
-                                <color key="backgroundColor" red="0.047058823530000002" green="0.47450980390000003" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Ncp-ST-cg7"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="True"/>
-                                <connections>
-                                    <action selector="checkAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GmD-Ud-Emb"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eic-Nx-foS">
                                 <rect key="frame" x="37" y="553" width="300" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.57647058819999997" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -52,18 +40,6 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYh-2d-v8I">
-                                <rect key="frame" x="37" y="274" width="300" height="50"/>
-                                <color key="backgroundColor" red="0.043364264070987701" green="0.47303980588912964" blue="0.59010249376296997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="fnd-Ve-5HT"/>
-                                </constraints>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="False"/>
-                                <connections>
-                                    <action selector="checkAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OGW-Ev-fPx"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question Results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdx-7u-IYZ">
                                 <rect key="frame" x="16" y="123" width="343" height="25"/>
                                 <constraints>
@@ -91,38 +67,58 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mML-vG-1S1">
+                                <rect key="frame" x="37" y="274" width="300" height="50"/>
+                                <color key="backgroundColor" red="0.043137254899999998" green="0.47450980390000003" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="rSY-AZ-DQq"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eCS-PX-f19">
+                                <rect key="frame" x="37" y="192" width="300" height="50"/>
+                                <color key="backgroundColor" red="0.043137254899999998" green="0.47450980390000003" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="rcB-9L-mxV"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.031372549020000001" green="0.16862745100000001" blue="0.24313725489999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qYh-2d-v8I" firstAttribute="top" secondItem="CSn-ih-qRR" secondAttribute="bottom" constant="32" id="0po-sU-wGf"/>
+                            <constraint firstItem="gs3-0O-0AS" firstAttribute="top" secondItem="mML-vG-1S1" secondAttribute="bottom" constant="32" id="0XP-aJ-kZD"/>
+                            <constraint firstItem="eCS-PX-f19" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="3Na-2k-Iat"/>
                             <constraint firstItem="dCF-BL-dDa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="3ug-uZ-s1W"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gs3-0O-0AS" secondAttribute="trailing" constant="38" id="B7b-5N-Peo"/>
                             <constraint firstItem="eic-Nx-foS" firstAttribute="top" secondItem="JSA-Gf-Ffu" secondAttribute="bottom" constant="65" id="Bev-UB-PFE"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CSn-ih-qRR" secondAttribute="trailing" constant="38" id="Bvk-SH-R7b"/>
                             <constraint firstItem="dCF-BL-dDa" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="IbU-vz-hrf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="eic-Nx-foS" secondAttribute="bottom" constant="64" id="KsM-3d-Fbt"/>
                             <constraint firstItem="JSA-Gf-Ffu" firstAttribute="top" secondItem="gs3-0O-0AS" secondAttribute="bottom" constant="32" id="Pzo-ah-Plt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JSA-Gf-Ffu" secondAttribute="trailing" constant="38" id="Q6L-OG-UKW"/>
                             <constraint firstItem="mdx-7u-IYZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="TOc-4g-Pbf"/>
-                            <constraint firstItem="CSn-ih-qRR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="atX-7J-pbb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mML-vG-1S1" secondAttribute="trailing" constant="38" id="TxG-9r-aR7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eCS-PX-f19" secondAttribute="trailing" constant="38" id="XXl-82-jmo"/>
+                            <constraint firstItem="eCS-PX-f19" firstAttribute="top" secondItem="mdx-7u-IYZ" secondAttribute="bottom" constant="44" id="bFj-bd-EXY"/>
                             <constraint firstItem="eic-Nx-foS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="crl-lW-Jzq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mdx-7u-IYZ" secondAttribute="trailing" constant="16" id="cx9-Nu-zpS"/>
                             <constraint firstItem="gs3-0O-0AS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="gYj-UI-9mK"/>
-                            <constraint firstItem="qYh-2d-v8I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="iTu-Ue-qIx"/>
-                            <constraint firstItem="CSn-ih-qRR" firstAttribute="top" secondItem="mdx-7u-IYZ" secondAttribute="bottom" constant="44" id="n3C-jQ-MTe"/>
-                            <constraint firstItem="gs3-0O-0AS" firstAttribute="top" secondItem="qYh-2d-v8I" secondAttribute="bottom" constant="32" id="pjP-GA-Nua"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qYh-2d-v8I" secondAttribute="trailing" constant="38" id="qH2-A7-fht"/>
+                            <constraint firstItem="mML-vG-1S1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="mKS-FQ-V6I"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dCF-BL-dDa" secondAttribute="trailing" constant="16" id="qXe-Wd-ug4"/>
                             <constraint firstItem="JSA-Gf-Ffu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="37" id="sUa-zQ-eMZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eic-Nx-foS" secondAttribute="trailing" constant="38" id="xed-IK-h3K"/>
+                            <constraint firstItem="mML-vG-1S1" firstAttribute="top" secondItem="eCS-PX-f19" secondAttribute="bottom" constant="32" id="yRa-3U-4iO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="falseButton" destination="qYh-2d-v8I" id="Kgl-kK-j1e"/>
+                        <outlet property="firstChoiceButton" destination="JSA-Gf-Ffu" id="cEL-OH-ifS"/>
+                        <outlet property="fourthChoiceButton" destination="eCS-PX-f19" id="LTI-CT-VFW"/>
                         <outlet property="playAgainButton" destination="eic-Nx-foS" id="fZz-Md-Y70"/>
                         <outlet property="questionField" destination="dCF-BL-dDa" id="HIQ-UX-KNe"/>
-                        <outlet property="trueButton" destination="CSn-ih-qRR" id="kyC-6T-ixm"/>
+                        <outlet property="secondChoiceButton" destination="gs3-0O-0AS" id="YNJ-6T-6hb"/>
+                        <outlet property="thirdChoiceButton" destination="mML-vG-1S1" id="k28-Yc-sVy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

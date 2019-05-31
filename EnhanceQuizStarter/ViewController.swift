@@ -15,16 +15,16 @@ class ViewController: UIViewController {
     // MARK: - Properties
     
     var gameSound: SystemSoundID = 0
-    
     let triviaProvider = TriviaProvider()
     
     // MARK: - Outlets
-    
     @IBOutlet weak var questionField: UILabel!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var fourthChoiceButton: UIButton!
+    @IBOutlet weak var thirdChoiceButton: UIButton!
+    @IBOutlet weak var secondChoiceButton: UIButton!
+    @IBOutlet weak var firstChoiceButton: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,15 +45,28 @@ class ViewController: UIViewController {
         AudioServicesPlaySystemSound(gameSound)
     }
     
+    // Display questions and choices
     func displayQuestion() {
         questionField.text = triviaProvider.randomQuestion()
+        
+        //Loop through available choices and update buttons appropriately
+        let choices = triviaProvider.questionChoices()
+        let buttons: [UIButton] = [firstChoiceButton, secondChoiceButton, thirdChoiceButton,fourthChoiceButton]
+        
+        for index in 0..<choices.count  {
+            buttons[index].setTitle(choices[index], for: UIControlState.normal)
+            buttons[index].isHidden = false
+        }
+        
         playAgainButton.isHidden = true
     }
     
     func displayScore() {
-        // Hide the answer uttons
-        trueButton.isHidden = true
-        falseButton.isHidden = true
+        // Hide the answer buttons
+        firstChoiceButton.isHidden = true
+        secondChoiceButton.isHidden = true
+        thirdChoiceButton.isHidden = true
+        fourthChoiceButton.isHidden = true
         
         // Display play again button
         playAgainButton.isHidden = false
@@ -84,7 +97,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Actions
-    
+    /*
     @IBAction func checkAnswer(_ sender: UIButton) {
         // Increment the questions asked counter
         triviaProvider.questionsAsked += 1
@@ -98,18 +111,22 @@ class ViewController: UIViewController {
         } else {
             questionField.text = "Sorry, wrong answer!"
         }
-        
+ 
         loadNextRound(delay: 2)
-    }
+    }*/
     
     
     @IBAction func playAgain(_ sender: UIButton) {
         // Show the answer buttons
-        trueButton.isHidden = false
-        falseButton.isHidden = false
+        firstChoiceButton.isHidden = true
+        secondChoiceButton.isHidden = true
+        thirdChoiceButton.isHidden = true
+        fourthChoiceButton.isHidden = true
         
         triviaProvider.questionsAsked = 0
         triviaProvider.correctQuestions = 0
+        triviaProvider.questionsUsed = []
+        triviaProvider.indexOfSelectedQuestion = 0
         nextRound()
     }
     
