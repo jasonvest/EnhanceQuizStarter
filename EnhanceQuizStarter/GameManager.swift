@@ -77,6 +77,8 @@ class GameManager    {
     var correctQuestions: Int = 0
     var indexOfSelectedQuestion: Int = 0
     var questionsUsed: [Int] = []
+    //var lightningMode: Bool
+    //var lightningRoundLength: Int = 15
     let quiz: QuizModel
     var questions: [QuestionModel] = []
     

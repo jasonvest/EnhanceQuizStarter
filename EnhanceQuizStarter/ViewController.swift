@@ -15,6 +15,11 @@ class ViewController: UIViewController {
     // MARK: - Properties
     
     var gameSound: SystemSoundID = 0
+    var wrongSound: SystemSoundID = 0
+    var correctSound: SystemSoundID = 0
+    var perfectGameSound: SystemSoundID = 0
+    var wompSound: SystemSoundID = 0
+    
     let gameManager = GameManager(questionsPerRound: 4)
     
     // MARK: - Outlets
@@ -37,17 +42,33 @@ class ViewController: UIViewController {
         self.setNeedsStatusBarAppearanceUpdate()
         super.viewDidLoad()
         
-        loadGameStartSound()
+        loadGameSounds()
         playGameStartSound()
         displayQuestion()
     }
     
     // MARK: - Helpers
     
-    func loadGameStartSound() {
-        let path = Bundle.main.path(forResource: "GameSound", ofType: "wav")
-        let soundUrl = URL(fileURLWithPath: path!)
-        AudioServicesCreateSystemSoundID(soundUrl as CFURL, &gameSound)
+    func loadGameSounds() {
+        let pathGameSound = Bundle.main.path(forResource: "GameSound", ofType: "wav")
+        let soundUrlGameSound = URL(fileURLWithPath: pathGameSound!)
+        AudioServicesCreateSystemSoundID(soundUrlGameSound as CFURL, &gameSound)
+        
+        let pathWrongSound = Bundle.main.path(forResource: "WrongSound", ofType: "wav")
+        let soundUrlWrongSound = URL(fileURLWithPath: pathWrongSound!)
+        AudioServicesCreateSystemSoundID(soundUrlWrongSound as CFURL, &wrongSound)
+        
+        let pathCorrectSound = Bundle.main.path(forResource: "CorrectSound", ofType: "wav")
+        let soundUrlCorrectSound = URL(fileURLWithPath: pathCorrectSound!)
+        AudioServicesCreateSystemSoundID(soundUrlCorrectSound as CFURL, &correctSound)
+        
+        let pathPerfectGameSound = Bundle.main.path(forResource: "PerfectGameSound", ofType: "wav")
+        let soundUrlPerfectGameSound = URL(fileURLWithPath: pathPerfectGameSound!)
+        AudioServicesCreateSystemSoundID(soundUrlPerfectGameSound as CFURL, &perfectGameSound)
+        
+        let pathWompSound = Bundle.main.path(forResource: "WompSound", ofType: "wav")
+        let soundUrlWompSound = URL(fileURLWithPath: pathWompSound!)
+        AudioServicesCreateSystemSoundID(soundUrlWompSound as CFURL, &wompSound)
     }
     
     func listOfChoiceButtons() -> [UIButton] {
@@ -57,6 +78,22 @@ class ViewController: UIViewController {
     
     func playGameStartSound() {
         AudioServicesPlaySystemSound(gameSound)
+    }
+    
+    func playCorrectAnswerSound()   {
+        AudioServicesPlaySystemSound(correctSound)
+    }
+    
+    func playWrongAnswerSound()   {
+        AudioServicesPlaySystemSound(wrongSound)
+    }
+    
+    func playPerfectGameSound() {
+        AudioServicesPlaySystemSound(perfectGameSound)
+    }
+    
+    func playWompSound()    {
+        AudioServicesPlaySystemSound(wompSound)
     }
     
     // Display questions and choices
@@ -105,16 +142,21 @@ class ViewController: UIViewController {
         switch scorePercentage {
         case 1.0:
             message = "Perfect score!\n"
+            playPerfectGameSound()
         case 0.75..<100.0:
             message = "Not too bad...\n"
+            playPerfectGameSound()
         case 0.50..<0.75:
             message = "I think you need some practice...\n"
+            playWompSound()
         case 0.00..<0.50:
             message = "That was rough!\n"
+            playWompSound()
         default:
             message = ""
         }
         questionField.text = message + "You got \(gameManager.correctQuestions) out of \(gameManager.questionsPerRound) correct!"
+        
     }
     
     func nextRound() {
@@ -155,11 +197,13 @@ class ViewController: UIViewController {
         
         if answerSelected == correctAnswer {
             gameManager.correctQuestions += 1
+            playCorrectAnswerSound()
             questionResults.text = "Correct!"
             questionResults.textColor = UIColor.init(red: 0, green: 255.0, blue: 0, alpha: 1.0)
             questionResults.isHidden = false
             
         } else  {
+            playWrongAnswerSound()
             questionResults.text = "Sorry, wrong answer!"
             questionResults.textColor = UIColor.init(red: 255.0, green: 0, blue: 0, alpha: 1.0)
             correctAnswerLabel.text = "Correct answer: \(correctAnswer)"
