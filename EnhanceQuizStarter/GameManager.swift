@@ -8,8 +8,8 @@
 import GameKit
 
 
-class TriviaProvider    {
-    let questions: [[String: String]] = [
+class GameManager    {
+    let trivia: [[String: String]] = [
         ["Question": "This was the only US President to serve more than two consecutive terms:",
          "Choice 1": "George Washington",
          "Choice 2": "Franklin D. Roosevelt",
@@ -72,39 +72,45 @@ class TriviaProvider    {
          "Answer": "Choice 4"],
     ]
     
-    let questionsPerRound: Int 
-    var questionsAsked: Int
-    var correctQuestions: Int
-    var indexOfSelectedQuestion: Int
-    var questionsUsed: [Int]
-
+    let questionsPerRound: Int
+    var questionsAsked: Int = 0
+    var correctQuestions: Int = 0
+    var indexOfSelectedQuestion: Int = 0
+    var questionsUsed: [Int] = []
+    let quiz: QuizModel
+    var questions: [QuestionModel] = []
     
-    init() {
-        self.questionsPerRound = 4
-        self.questionsAsked = 0
-        self.correctQuestions = 0
-        self.indexOfSelectedQuestion = 0
-        self.questionsUsed = []
+    init(questionsPerRound: Int) {
+        self.questionsPerRound = questionsPerRound
+        let numberOfQuestions = self.questionsPerRound * 2
+        let randomTrivia = trivia.shuffled()
+        
+        //Create randomized question set for quiz and setup quiz object
+        for index in 0..<numberOfQuestions  {
+            let question: String = randomTrivia[index]["Question"]!
+            let answer: String = randomTrivia[index]["Answer"]!
+            var choices: [String] = []
+            for (key, value) in randomTrivia[index] {
+                if key.hasPrefix("Choice")  {
+                    choices.append(value)
+                }
+            }
+            self.questions.append(QuestionModel(question: question, choices: choices, answer: answer))
+        }
+        self.quiz = QuizModel(questions: self.questions)
     }
     
-    func randomQuestion() -> String {
+    func randomQuestion() -> QuestionModel {
         repeat  {
-            self.indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: questions.count)
+            self.indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: self.quiz.questions.count)
         } while questionsUsed.contains(indexOfSelectedQuestion) == true
         
-        let questionDictionary = questions[indexOfSelectedQuestion]
-        var questionText = ""
+        let question: QuestionModel = self.quiz.questions[indexOfSelectedQuestion]
+        self.questionsUsed.append(indexOfSelectedQuestion)
         
-        if questionDictionary["Question"] != nil    {
-            questionText = questionDictionary["Question"]!
-            questionsUsed.append(indexOfSelectedQuestion)
-        }
-        else    {
-            questionText = ""
-        }
-        return questionText
+        return question
     }
-    
+    /*
     func questionChoices() -> [String] {
         var results = [String]()
         for (key, value) in questions[indexOfSelectedQuestion]  {
@@ -113,5 +119,5 @@ class TriviaProvider    {
             }
         }
         return results
-    }
+    }*/
 }

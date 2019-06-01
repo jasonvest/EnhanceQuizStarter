@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     // MARK: - Properties
     
     var gameSound: SystemSoundID = 0
-    let triviaProvider = TriviaProvider()
+    let gameManager = GameManager(questionsPerRound: 4)
     
     // MARK: - Outlets
     @IBOutlet weak var questionField: UILabel!
@@ -47,10 +47,11 @@ class ViewController: UIViewController {
     
     // Display questions and choices
     func displayQuestion() {
-        questionField.text = triviaProvider.randomQuestion()
+        let question = gameManager.randomQuestion()
+        questionField.text = question.question
         
         //Loop through available choices and update buttons appropriately
-        let choices = triviaProvider.questionChoices()
+        let choices = question.choices
         let buttons: [UIButton] = [firstChoiceButton, secondChoiceButton, thirdChoiceButton,fourthChoiceButton]
         
         for index in 0..<choices.count  {
@@ -71,11 +72,11 @@ class ViewController: UIViewController {
         // Display play again button
         playAgainButton.isHidden = false
         
-        questionField.text = "Way to go!\nYou got \(triviaProvider.correctQuestions) out of \(triviaProvider.questionsPerRound) correct!"
+        questionField.text = "Way to go!\nYou got \(gameManager.correctQuestions) out of \(gameManager.questionsPerRound) correct!"
     }
     
     func nextRound() {
-        if triviaProvider.questionsAsked == triviaProvider.questionsPerRound {
+        if gameManager.questionsAsked == gameManager.questionsPerRound {
             // Game is over
             displayScore()
         } else {
@@ -123,10 +124,10 @@ class ViewController: UIViewController {
         thirdChoiceButton.isHidden = true
         fourthChoiceButton.isHidden = true
         
-        triviaProvider.questionsAsked = 0
-        triviaProvider.correctQuestions = 0
-        triviaProvider.questionsUsed = []
-        triviaProvider.indexOfSelectedQuestion = 0
+        gameManager.questionsAsked = 0
+        gameManager.correctQuestions = 0
+        gameManager.questionsUsed = []
+        gameManager.indexOfSelectedQuestion = 0
         nextRound()
     }
     
