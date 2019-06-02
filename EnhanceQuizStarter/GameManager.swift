@@ -7,7 +7,7 @@
 //
 import GameKit
 
-
+///Main class for setting up and running the quiz game
 class GameManager    {
     let trivia: [[String: String]] = [
         ["Question": "This was the only US President to serve more than two consecutive terms:",
@@ -77,8 +77,9 @@ class GameManager    {
     var correctQuestions: Int = 0
     var indexOfSelectedQuestion: Int = 0
     var questionsUsed: [Int] = []
-    //var lightningMode: Bool
-    //var lightningRoundLength: Int = 15
+    var speedRoundMode: Bool = false
+    let speedRoundLength: Int = 15
+    var speedRoundTime: Int = 0
     let quiz: QuizModel
     var questions: [QuestionModel] = []
     
@@ -102,6 +103,7 @@ class GameManager    {
         self.quiz = QuizModel(questions: self.questions)
     }
     
+    ///Generates a random question and adds it to the questions used array so it is not reused
     func randomQuestion() -> QuestionModel {
         repeat  {
             self.indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: self.quiz.questions.count)
@@ -114,5 +116,46 @@ class GameManager    {
     }
     func scorePercentage() -> Double {
         return Double(self.correctQuestions)/Double(self.questionsAsked)
+    }
+    
+    ///Returns the score percentage and customized message based on score
+    func scoreResults() -> (percentage: Double, message: String) {
+        let percentage: Double = self.scorePercentage()
+        var message: String
+        switch percentage {
+        case 1.0:
+            message = "Perfect score!\n"
+        case 0.75..<100.0:
+            message = "Not too bad...\n"
+        case 0.50..<0.75:
+            message = "I think you need some practice...\n"
+        case 0.00..<0.50:
+            message = "That was rough!\n"
+        default:
+            message = ""
+        }
+        return(percentage, message)
+    }
+
+    func checkAnswer(forSelectedChoice choice: String, isTimeUp timeUp: Bool) -> (correctAnswer: String, resultMessage: String, correct: Bool) {
+        let choice: String = choice
+        let timeUp: Bool = timeUp
+        let isCorrect: Bool
+        var resultMessage: String
+        let correctAnswer: String = self.quiz.questions[self.indexOfSelectedQuestion].answer
+        self.questionsAsked += 1
+        
+        if timeUp   {
+            resultMessage = "Sorry, you ran out of time!"
+            isCorrect = false
+        }   else if choice == correctAnswer   {
+            self.correctQuestions += 1
+            isCorrect = true
+            resultMessage = "Correct!"
+        }   else    {
+            isCorrect = false
+            resultMessage = "Sorry, wrong answer!"
+        }
+        return(correctAnswer, resultMessage, isCorrect)
     }
 }

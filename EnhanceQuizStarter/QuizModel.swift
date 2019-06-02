@@ -6,6 +6,7 @@
 //  Copyright © 2019 Treehouse. All rights reserved.
 //
 
+///Struct for the quiz to hold the assigned questions
 struct QuizModel    {
     let questions: [QuestionModel]
 

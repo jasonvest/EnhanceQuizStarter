@@ -6,6 +6,7 @@
 //  Copyright © 2019 Treehouse. All rights reserved.
 //
 
+///Struct to hold necessary data for trivia questions
 struct QuestionModel {
     let question: String
     let choices: [String]
