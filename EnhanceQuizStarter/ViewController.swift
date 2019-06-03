@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var perfectGameSound: SystemSoundID = 0
     var wompSound: SystemSoundID = 0
     let gameManager = GameManager(questionsPerRound: 4)
+    let soundManager = SoundManager()
     var speedRoundTimer: Timer!
     
     // MARK: - Outlets
@@ -46,34 +47,11 @@ class ViewController: UIViewController {
         self.setNeedsStatusBarAppearanceUpdate()
         super.viewDidLoad()
         
-        loadGameSounds()
-        playGameSound(gameSound)
+        soundManager.playGameSound(soundManager.gameSound)
         startGame()
     }
     
     // MARK: - Helpers
-    //Load the various sounds needed throughout the game
-    func loadGameSounds() {
-        let pathGameSound = Bundle.main.path(forResource: "GameSound", ofType: "wav")
-        let soundUrlGameSound = URL(fileURLWithPath: pathGameSound!)
-        AudioServicesCreateSystemSoundID(soundUrlGameSound as CFURL, &gameSound)
-        
-        let pathWrongSound = Bundle.main.path(forResource: "WrongSound", ofType: "wav")
-        let soundUrlWrongSound = URL(fileURLWithPath: pathWrongSound!)
-        AudioServicesCreateSystemSoundID(soundUrlWrongSound as CFURL, &wrongSound)
-        
-        let pathCorrectSound = Bundle.main.path(forResource: "CorrectSound", ofType: "wav")
-        let soundUrlCorrectSound = URL(fileURLWithPath: pathCorrectSound!)
-        AudioServicesCreateSystemSoundID(soundUrlCorrectSound as CFURL, &correctSound)
-        
-        let pathPerfectGameSound = Bundle.main.path(forResource: "PerfectGameSound", ofType: "wav")
-        let soundUrlPerfectGameSound = URL(fileURLWithPath: pathPerfectGameSound!)
-        AudioServicesCreateSystemSoundID(soundUrlPerfectGameSound as CFURL, &perfectGameSound)
-        
-        let pathWompSound = Bundle.main.path(forResource: "WompSound", ofType: "wav")
-        let soundUrlWompSound = URL(fileURLWithPath: pathWompSound!)
-        AudioServicesCreateSystemSoundID(soundUrlWompSound as CFURL, &wompSound)
-    }
     
     //Return an array of the choice buttons to cycle through and set properties
     func listOfChoiceButtons() -> [UIButton] {
@@ -83,11 +61,7 @@ class ViewController: UIViewController {
                                    fourthChoiceButton]
         return buttons
     }
-    
-    //Function to play the various sounds
-    func playGameSound(_ sound: SystemSoundID) -> Void {
-        AudioServicesPlaySystemSound(sound)
-    }
+
     //Format time into the number of seconds
     func formatTimeDisplay(_ totalSeconds: Int) -> String    {
         let seconds: Int = totalSeconds % 60
@@ -186,13 +160,13 @@ class ViewController: UIViewController {
         let scoreResults = gameManager.scoreResults()
         switch scoreResults.percentage {
         case 1.0:
-            playGameSound(perfectGameSound)
+            soundManager.playGameSound(soundManager.perfectGameSound)
         case 0.75..<100.0:
-            playGameSound(perfectGameSound)
+            soundManager.playGameSound(soundManager.perfectGameSound)
         case 0.50..<0.75:
-            playGameSound(wompSound)
+            soundManager.playGameSound(soundManager.wompSound)
         case 0.00..<0.50:
-            playGameSound(wompSound)
+            soundManager.playGameSound(soundManager.wompSound)
         default:
             break
         }
@@ -218,11 +192,11 @@ class ViewController: UIViewController {
         
         //Update display based on the results
         if results.correct  {
-            playGameSound(correctSound)
+            soundManager.playGameSound(soundManager.correctSound)
             questionResults.text = results.resultMessage
             questionResults.textColor = UIColor.init(red: 0, green: 255.0, blue: 0, alpha: 1.0)
         } else  {
-            playGameSound(wrongSound)
+            soundManager.playGameSound(soundManager.wrongSound)
             questionResults.text = results.resultMessage
             questionResults.textColor = UIColor.init(red: 255.0, green: 0, blue: 0, alpha: 1.0)
             correctAnswerLabel.text = "Correct answer: \(results.correctAnswer)"

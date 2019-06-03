@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E4993DE22A5D6B600BAD857 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4993DD22A5D6B600BAD857 /* SoundManager.swift */; };
 		3EB12AE822A32B37000AFED6 /* CorrectSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EB12AE522A32B36000AFED6 /* CorrectSound.wav */; };
 		3EB12AE922A32B37000AFED6 /* PerfectGameSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EB12AE622A32B36000AFED6 /* PerfectGameSound.wav */; };
 		3EB12AEA22A32B37000AFED6 /* WrongSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EB12AE722A32B37000AFED6 /* WrongSound.wav */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E4993DD22A5D6B600BAD857 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		3EB12AE522A32B36000AFED6 /* CorrectSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CorrectSound.wav; sourceTree = "<group>"; };
 		3EB12AE622A32B36000AFED6 /* PerfectGameSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PerfectGameSound.wav; sourceTree = "<group>"; };
 		3EB12AE722A32B37000AFED6 /* WrongSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WrongSound.wav; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				3EC403BA229DEE0200BDAB80 /* GameManager.swift */,
 				3EBD3E0822A1D906001FA055 /* QuestionModel.swift */,
 				3EBD3E0A22A1DBB0001FA055 /* QuizModel.swift */,
+				3E4993DD22A5D6B600BAD857 /* SoundManager.swift */,
 			);
 			path = EnhanceQuizStarter;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				972A72B12056F06C0059EF4A /* AppDelegate.swift in Sources */,
 				3EBD3E0922A1D906001FA055 /* QuestionModel.swift in Sources */,
 				3EBD3E0B22A1DBB0001FA055 /* QuizModel.swift in Sources */,
+				3E4993DE22A5D6B600BAD857 /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
