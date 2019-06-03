@@ -144,7 +144,7 @@ class ViewController: UIViewController {
         }
         
         //Loop through available choices and update buttons appropriately
-        let choices = question.choices
+        let choices = question.choices.shuffled()
         let buttons = listOfChoiceButtons()
         for button in buttons   {
             button.isHidden = true
@@ -235,7 +235,8 @@ class ViewController: UIViewController {
     
     //Determine if the round is ongoing or over
     func nextRound() -> Void {
-        if gameManager.questionsAsked == gameManager.questionsPerRound {
+        let gameOver = gameManager.isRoundOver()
+        if gameOver {
             // Game is over
             displayScore()
         } else {
@@ -271,11 +272,8 @@ class ViewController: UIViewController {
         let buttons = listOfChoiceButtons()
         for button in buttons   {
             button.isHidden = true
-        }        
-        gameManager.questionsAsked = 0
-        gameManager.correctQuestions = 0
-        gameManager.questionsUsed = []
-        gameManager.indexOfSelectedQuestion = 0
+        }
+        gameManager.resetGame()
         nextRound()
     }
     //Enable the speed round based based on user choice

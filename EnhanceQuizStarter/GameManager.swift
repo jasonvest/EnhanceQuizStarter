@@ -19,8 +19,6 @@ class GameManager    {
         ["Question": "Which of the following countries has the most residents?",
          "Choice 1": "Nigeria",
          "Choice 2": "Russia",
-         "Choice 3": "Iran",
-         "Choice 4": "Vietnam",
          "Answer": "Nigeria"],
         ["Question": "In what year was the United Nations founded?",
          "Choice 1": "1918",
@@ -44,7 +42,6 @@ class GameManager    {
          "Choice 1": "Italy",
          "Choice 2": "Brazil",
          "Choice 3": "Argentina",
-         "Choice 4": "Spain",
          "Answer": "Brazil"],
         ["Question": "Which of the following rivers is longest?",
          "Choice 1": "Yangtze",
@@ -61,8 +58,6 @@ class GameManager    {
         ["Question": "Which country was the first to allow women to vote in national elections?",
          "Choice 1": "Poland",
          "Choice 2": "United States",
-         "Choice 3": "Sweden",
-         "Choice 4": "Senegal",
          "Answer": "Poland"],
         ["Question": "Which of these countries won the most medals in the 2012 Summer Games?",
          "Choice 1": "France",
@@ -114,6 +109,8 @@ class GameManager    {
         
         return question
     }
+    
+    ///Calculates the score percentage
     func scorePercentage() -> Double {
         return Double(self.correctQuestions)/Double(self.questionsAsked)
     }
@@ -157,5 +154,22 @@ class GameManager    {
             resultMessage = "Sorry, wrong answer!"
         }
         return(correctAnswer, resultMessage, isCorrect)
+    }
+    ///Checks to see if the round is over and returns true if it is, false if it is not
+    func isRoundOver() -> Bool {
+        var result: Bool
+        if self.questionsAsked == self.questionsPerRound    {
+            result = true
+        }   else    {
+            result = false
+        }
+        return result
+    }
+    ///Resets game properties so it is ready for the next round
+    func resetGame() -> Void {
+        self.questionsAsked = 0
+        self.correctQuestions = 0
+        self.questionsUsed = []
+        self.indexOfSelectedQuestion = 0
     }
 }
