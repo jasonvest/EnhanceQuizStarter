@@ -72,14 +72,16 @@ class GameManager    {
     var correctQuestions: Int = 0
     var indexOfSelectedQuestion: Int = 0
     var questionsUsed: [Int] = []
-    var speedRoundMode: Bool = false
-    let speedRoundLength: Int = 15
+    var speedRoundMode: Bool
+    let speedRoundLength: Int
     var speedRoundTime: Int = 0
     let quiz: Quiz
     var questions: [Question] = []
     
-    init(questionsPerRound: Int) {
+    init(questionsPerRound: Int, speedRoundMode: Bool = false, speedRoundLength: Int = 15) {
         self.questionsPerRound = questionsPerRound
+        self.speedRoundMode = speedRoundMode
+        self.speedRoundLength = speedRoundLength
         let numberOfQuestions = self.questionsPerRound * 2
         let randomTrivia = trivia.shuffled()
         

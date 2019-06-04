@@ -37,7 +37,7 @@ struct SoundManager {
     }
     
     //Play the requested sound
-    func playGameSound(_ sound: SystemSoundID) -> Void {
+    func playSelectedSound(_ sound: SystemSoundID) -> Void {
         AudioServicesPlaySystemSound(sound)
     }
 }

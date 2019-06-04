@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         //Researched on internet and documentation
         self.setNeedsStatusBarAppearanceUpdate()
         super.viewDidLoad()
-        soundManager.playGameSound(soundManager.gameSound)
+        soundManager.playSelectedSound(soundManager.gameSound)
         startGame()
     }
     
@@ -70,8 +70,8 @@ class ViewController: UIViewController {
     @objc func updateTimerDisplay() -> Void   {
         timerDisplay.text = "\(formatTimeDisplay(gameManager.speedRoundTime))"
         let progressCalculation: Float = Float(gameManager.speedRoundTime)/Float(gameManager.speedRoundLength)
+        self.progressTimer.setProgress(progressCalculation, animated: true)
         
-        progressTimer.setProgress(progressCalculation, animated: true)
         
         if gameManager.speedRoundTime != 0  {
             gameManager.speedRoundTime -= 1
@@ -165,22 +165,22 @@ class ViewController: UIViewController {
         speedRoundSwitch.isHidden = false
         speedRoundLabel.isHidden = false
         
-        // Customize sound based on results
+        // Customize sound and message based on results
         let scorePercentage = gameManager.scorePercentage()
         var message: String = ""
         switch scorePercentage  {
         case 1.0:
             message = "Perfect score!\n"
-            soundManager.playGameSound(soundManager.perfectGameSound)
+            soundManager.playSelectedSound(soundManager.perfectGameSound)
         case 0.75..<100.0:
             message = "Not too bad...\n"
-            soundManager.playGameSound(soundManager.perfectGameSound)
+            soundManager.playSelectedSound(soundManager.perfectGameSound)
         case 0.50..<0.75:
             message = "I think you need some practice...\n"
-            soundManager.playGameSound(soundManager.wompSound)
+            soundManager.playSelectedSound(soundManager.wompSound)
         case 0.00..<0.50:
             message = "That was rough!\n"
-            soundManager.playGameSound(soundManager.wompSound)
+            soundManager.playSelectedSound(soundManager.wompSound)
         default:
             break
         }
@@ -203,12 +203,13 @@ class ViewController: UIViewController {
         //Hide progress timer and timer display
         progressTimer.isHidden = true
         timerDisplay.isHidden = true
+        
         //Call the game manager method to check the results
         let results = gameManager.checkAnswer(forSelectedChoice: choiceSelected, isTimeUp: timeUp)
         
-        //Update display based on the results
+        //Update display and play appropriate sound based on the results
         if results.correct  {
-            soundManager.playGameSound(soundManager.correctSound)
+            soundManager.playSelectedSound(soundManager.correctSound)
             questionResults.text = "Correct!"
             questionResults.textColor = UIColor.init(red: 0, green: 255.0, blue: 0, alpha: 1.0)
         } else if !results.correct  {
@@ -217,7 +218,7 @@ class ViewController: UIViewController {
             } else if !results.timeIsUp {
                 questionResults.text = "Sorry, wrong answer!"
             }
-            soundManager.playGameSound(soundManager.wrongSound)
+            soundManager.playSelectedSound(soundManager.wrongSound)
             questionResults.textColor = UIColor.init(red: 255.0, green: 0, blue: 0, alpha: 1.0)
             correctAnswerLabel.text = "Correct answer: \(results.correctAnswer)"
             correctAnswerLabel.isHidden = false
