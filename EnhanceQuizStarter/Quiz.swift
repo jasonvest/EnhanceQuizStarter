@@ -7,10 +7,10 @@
 //
 
 ///Struct for the quiz to hold the assigned questions
-struct QuizModel    {
-    let questions: [QuestionModel]
+struct Quiz    {
+    let questions: [Question]
 
-    init(questions: [QuestionModel]) {
+    init(questions: [Question]) {
         self.questions = questions
     }
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 import GameKit
-import AudioToolbox
 
 class ViewController: UIViewController {
     
@@ -33,8 +32,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var correctAnswerLabel: UILabel!
     @IBOutlet weak var speedRoundSwitch: UISwitch!
     @IBOutlet weak var speedRoundLabel: UILabel!
-    @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var timerDisplay: UILabel!
+    @IBOutlet weak var progressTimer: UIProgressView!
     
     
     //Researched on the internet and in documentation
@@ -46,7 +45,6 @@ class ViewController: UIViewController {
         //Researched on internet and documentation
         self.setNeedsStatusBarAppearanceUpdate()
         super.viewDidLoad()
-        
         soundManager.playGameSound(soundManager.gameSound)
         startGame()
     }
@@ -55,21 +53,25 @@ class ViewController: UIViewController {
     
     //Return an array of the choice buttons to cycle through and set properties
     func listOfChoiceButtons() -> [UIButton] {
-        let buttons: [UIButton] = [firstChoiceButton,
-                                   secondChoiceButton,
+        let buttons: [UIButton] = [fourthChoiceButton,
                                    thirdChoiceButton,
-                                   fourthChoiceButton]
+                                   secondChoiceButton,
+                                   firstChoiceButton]
         return buttons
     }
 
     //Format time into the number of seconds
     func formatTimeDisplay(_ totalSeconds: Int) -> String    {
         let seconds: Int = totalSeconds % 60
-        return "\(seconds)"
+        let results = String(format: "%02d", seconds)
+        return results
     }
-    //Update the time displayed
+    //Update the countdown time displayed and the progress indicator
     @objc func updateTimerDisplay() -> Void   {
         timerDisplay.text = "\(formatTimeDisplay(gameManager.speedRoundTime))"
+        let progressCalculation: Float = Float(gameManager.speedRoundTime)/Float(gameManager.speedRoundLength)
+        
+        progressTimer.setProgress(progressCalculation, animated: true)
         
         if gameManager.speedRoundTime != 0  {
             gameManager.speedRoundTime -= 1
@@ -87,8 +89,27 @@ class ViewController: UIViewController {
     func startGame() -> Void  {
         questionField.text = "Are you ready to play?"
     }
+    //Display appropriate controls and labels, start timer for speed round
+    func checkIfSpeedRound() -> Void {
+        if gameManager.speedRoundMode {
+            timerDisplay.isHidden = false
+            progressTimer.setProgress(1.0, animated: false)
+            progressTimer.isHidden = false
+            timerDisplay.text = "\(gameManager.speedRoundLength)"
+            gameManager.speedRoundTime = gameManager.speedRoundLength
+            speedRoundTimer = Timer.scheduledTimer(timeInterval: 1,
+                                               target: self,
+                                               selector: #selector(updateTimerDisplay),
+                                               userInfo: nil,
+                                               repeats: true)
+        }
+        else  {
+            timerDisplay.isHidden = true
+            progressTimer.isHidden = true
+        }
+    }
     
-    // Display questions and choices
+    // Display question and choices
     func displayQuestion() -> Void {
         //Hide play, speed round, results and correct answer
         playAgainButton.isHidden = true
@@ -96,26 +117,14 @@ class ViewController: UIViewController {
         speedRoundSwitch.isHidden = true
         questionResults.isHidden = true
         correctAnswerLabel.isHidden = true
+
         
         //Call the function to generate a random question
         let question = gameManager.randomQuestion()
         questionField.text = question.question
         
         //Check to see if the speedround is selected and display the appropriate labels, start the timder
-        if gameManager.speedRoundMode {
-            timerLabel.isHidden = false
-            timerDisplay.isHidden = false
-            timerDisplay.text = "\(gameManager.speedRoundLength)"
-            gameManager.speedRoundTime = gameManager.speedRoundLength
-            speedRoundTimer = Timer.scheduledTimer(timeInterval: 1,
-                                                   target: self,
-                                                   selector: #selector(updateTimerDisplay),
-                                                   userInfo: nil,
-                                                   repeats: true)
-        } else  {
-            timerLabel.isHidden = true
-            timerDisplay.isHidden = true
-        }
+        checkIfSpeedRound()
         
         //Loop through available choices and update buttons appropriately
         let choices = question.choices.shuffled()
@@ -142,8 +151,8 @@ class ViewController: UIViewController {
         }
         questionResults.isHidden = true
         correctAnswerLabel.isHidden = true
-        timerLabel.isHidden = true
         timerDisplay.isHidden = true
+        progressTimer.isHidden = true
         
         // Display play again and speed round label and switch
         playAgainButton.setTitle("Play Again", for: UIControlState.normal)
@@ -157,21 +166,26 @@ class ViewController: UIViewController {
         speedRoundLabel.isHidden = false
         
         // Customize sound based on results
-        let scoreResults = gameManager.scoreResults()
-        switch scoreResults.percentage {
+        let scorePercentage = gameManager.scorePercentage()
+        var message: String = ""
+        switch scorePercentage  {
         case 1.0:
+            message = "Perfect score!\n"
             soundManager.playGameSound(soundManager.perfectGameSound)
         case 0.75..<100.0:
+            message = "Not too bad...\n"
             soundManager.playGameSound(soundManager.perfectGameSound)
         case 0.50..<0.75:
+            message = "I think you need some practice...\n"
             soundManager.playGameSound(soundManager.wompSound)
         case 0.00..<0.50:
+            message = "That was rough!\n"
             soundManager.playGameSound(soundManager.wompSound)
         default:
             break
         }
         //Display the results message
-        questionField.text = scoreResults.message + "You got \(gameManager.correctQuestions) out of \(gameManager.questionsPerRound) correct!"
+        questionField.text = message + "You got \(gameManager.correctQuestions) out of \(gameManager.questionsPerRound) correct!"
     }
     
     //Display answer results, start next round
@@ -186,18 +200,24 @@ class ViewController: UIViewController {
                 button.isEnabled = false
             }
         }
-        
+        //Hide progress timer and timer display
+        progressTimer.isHidden = true
+        timerDisplay.isHidden = true
         //Call the game manager method to check the results
         let results = gameManager.checkAnswer(forSelectedChoice: answerSelected, isTimeUp: timeUp)
         
         //Update display based on the results
         if results.correct  {
             soundManager.playGameSound(soundManager.correctSound)
-            questionResults.text = results.resultMessage
+            questionResults.text = "Correct!"
             questionResults.textColor = UIColor.init(red: 0, green: 255.0, blue: 0, alpha: 1.0)
-        } else  {
+        } else if !results.correct  {
+            if results.timeIsUp {
+                questionResults.text = "Sorry, you ran out of time!"
+            } else if !results.timeIsUp {
+                questionResults.text = "Sorry, wrong answer!"
+            }
             soundManager.playGameSound(soundManager.wrongSound)
-            questionResults.text = results.resultMessage
             questionResults.textColor = UIColor.init(red: 255.0, green: 0, blue: 0, alpha: 1.0)
             correctAnswerLabel.text = "Correct answer: \(results.correctAnswer)"
             correctAnswerLabel.isHidden = false

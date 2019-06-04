@@ -12,8 +12,8 @@
 		3EB12AE922A32B37000AFED6 /* PerfectGameSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EB12AE622A32B36000AFED6 /* PerfectGameSound.wav */; };
 		3EB12AEA22A32B37000AFED6 /* WrongSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EB12AE722A32B37000AFED6 /* WrongSound.wav */; };
 		3EB12AEC22A32F12000AFED6 /* WompSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3EB12AEB22A32F12000AFED6 /* WompSound.wav */; };
-		3EBD3E0922A1D906001FA055 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD3E0822A1D906001FA055 /* QuestionModel.swift */; };
-		3EBD3E0B22A1DBB0001FA055 /* QuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD3E0A22A1DBB0001FA055 /* QuizModel.swift */; };
+		3EBD3E0922A1D906001FA055 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD3E0822A1D906001FA055 /* Question.swift */; };
+		3EBD3E0B22A1DBB0001FA055 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD3E0A22A1DBB0001FA055 /* Quiz.swift */; };
 		3EC403BB229DEE0200BDAB80 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC403BA229DEE0200BDAB80 /* GameManager.swift */; };
 		972A72B12056F06C0059EF4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972A72B02056F06C0059EF4A /* AppDelegate.swift */; };
 		972A72B32056F06C0059EF4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972A72B22056F06C0059EF4A /* ViewController.swift */; };
@@ -29,8 +29,8 @@
 		3EB12AE622A32B36000AFED6 /* PerfectGameSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PerfectGameSound.wav; sourceTree = "<group>"; };
 		3EB12AE722A32B37000AFED6 /* WrongSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WrongSound.wav; sourceTree = "<group>"; };
 		3EB12AEB22A32F12000AFED6 /* WompSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WompSound.wav; sourceTree = "<group>"; };
-		3EBD3E0822A1D906001FA055 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
-		3EBD3E0A22A1DBB0001FA055 /* QuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModel.swift; sourceTree = "<group>"; };
+		3EBD3E0822A1D906001FA055 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		3EBD3E0A22A1DBB0001FA055 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		3EC403BA229DEE0200BDAB80 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		972A72AD2056F06C0059EF4A /* EnhanceQuizStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnhanceQuizStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		972A72B02056F06C0059EF4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,8 +84,8 @@
 				972A72BC2056F06C0059EF4A /* Info.plist */,
 				972A72C22056F0E40059EF4A /* GameSound.wav */,
 				3EC403BA229DEE0200BDAB80 /* GameManager.swift */,
-				3EBD3E0822A1D906001FA055 /* QuestionModel.swift */,
-				3EBD3E0A22A1DBB0001FA055 /* QuizModel.swift */,
+				3EBD3E0822A1D906001FA055 /* Question.swift */,
+				3EBD3E0A22A1DBB0001FA055 /* Quiz.swift */,
 				3E4993DD22A5D6B600BAD857 /* SoundManager.swift */,
 			);
 			path = EnhanceQuizStarter;
@@ -171,8 +171,8 @@
 				972A72B32056F06C0059EF4A /* ViewController.swift in Sources */,
 				3EC403BB229DEE0200BDAB80 /* GameManager.swift in Sources */,
 				972A72B12056F06C0059EF4A /* AppDelegate.swift in Sources */,
-				3EBD3E0922A1D906001FA055 /* QuestionModel.swift in Sources */,
-				3EBD3E0B22A1DBB0001FA055 /* QuizModel.swift in Sources */,
+				3EBD3E0922A1D906001FA055 /* Question.swift in Sources */,
+				3EBD3E0B22A1DBB0001FA055 /* Quiz.swift in Sources */,
 				3E4993DE22A5D6B600BAD857 /* SoundManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

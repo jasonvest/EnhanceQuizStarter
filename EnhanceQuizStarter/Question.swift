@@ -7,7 +7,7 @@
 //
 
 ///Struct to hold necessary data for trivia questions
-struct QuestionModel {
+struct Question {
     let question: String
     let choices: [String]
     let answer: String
