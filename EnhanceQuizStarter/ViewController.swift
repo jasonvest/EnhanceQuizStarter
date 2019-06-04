@@ -123,7 +123,7 @@ class ViewController: UIViewController {
         let question = gameManager.randomQuestion()
         questionField.text = question.question
         
-        //Check to see if the speedround is selected and display the appropriate labels, start the timder
+        //Check to see if the speedround is selected and display the appropriate labels, start the timer
         checkIfSpeedRound()
         
         //Loop through available choices and update buttons appropriately
@@ -135,7 +135,7 @@ class ViewController: UIViewController {
                 button.isEnabled = true
             }
         }
-        //Loop through the availble number of choices and the same number of buttons as choices
+        //Loop through the availble number of choices and enable the same number of buttons as choices
         for index in 0..<choices.count  {
             buttons[index].setTitle(choices[index], for: UIControlState.normal)
             buttons[index].isHidden = false
@@ -190,13 +190,13 @@ class ViewController: UIViewController {
     
     //Display answer results, start next round
     func checkAndDisplayResults(forChoice choice: String, isTimeUp timeUp: Bool) -> Void {
-        let answerSelected = choice
+        let choiceSelected = choice
         let timeUp = timeUp
         
         //Highlight the button if selected, and disable input for the others
         let buttons = listOfChoiceButtons()
         for button in buttons   {
-            if button.currentTitle! != answerSelected    {
+            if button.currentTitle! != choiceSelected    {
                 button.isEnabled = false
             }
         }
@@ -204,7 +204,7 @@ class ViewController: UIViewController {
         progressTimer.isHidden = true
         timerDisplay.isHidden = true
         //Call the game manager method to check the results
-        let results = gameManager.checkAnswer(forSelectedChoice: answerSelected, isTimeUp: timeUp)
+        let results = gameManager.checkAnswer(forSelectedChoice: choiceSelected, isTimeUp: timeUp)
         
         //Update display based on the results
         if results.correct  {
@@ -238,6 +238,7 @@ class ViewController: UIViewController {
             displayQuestion()
         }
     }
+    
     //Pause between each question
     func loadNextRound(delay seconds: Int) -> Void {
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
@@ -257,9 +258,10 @@ class ViewController: UIViewController {
             stopTimer()
         }
         //Get selected choice and check if it is correct
-        let answerSelected = sender.currentTitle!
-        checkAndDisplayResults(forChoice: answerSelected, isTimeUp: false)
+        let choiceSelected = sender.currentTitle!
+        checkAndDisplayResults(forChoice: choiceSelected, isTimeUp: false)
     }
+    
     //Start the game or play it again
     @IBAction func playAgain(_ sender: UIButton) -> Void {
         // Reset choice buttons to hidden
@@ -270,6 +272,7 @@ class ViewController: UIViewController {
         gameManager.resetGame()
         nextRound()
     }
+    
     //Enable the speed round based based on user choice
     @IBAction func speedRound(_ sender: UISwitch) -> Void {
         if sender.isOn == true  {
