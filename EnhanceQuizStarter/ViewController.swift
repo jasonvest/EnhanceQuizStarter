@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressTimer: UIProgressView!
     
     
-    //Researched on the internet and in documentation
+    //Researched on the internet and in Apple documentation
     override var preferredStatusBarStyle: UIStatusBarStyle  {
         return .lightContent
     }
